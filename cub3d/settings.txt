@@ -1,0 +1,34 @@
+TILESIZE = 32
+
+ROWS = strlen(map[i])
+
+COLS = array_size(map)
+
+WINDOWS_WIDTH = COLS * TILESIZE
+
+WINDOWS_HEIGHT = ROWS * TILESIZE
+
+FOV = 70 * (pi / 180)
+
+//draw map
+tile_x = j * TILESIZE
+tile_y = i * TILESIZE // add color
+
+
+(80,59) (pixels = player position)==>>  (2,1) (cols && Rows = Tile position)
+        player position / TILESIZE
+
+move player = min 32
+
+player.x
+player.y
+
+player.turndirection
+player.walkdirection
+player.rotationangle
+player.movespeed
+player.rotationspeed //angle
+
+
+
+///// normalize angle
