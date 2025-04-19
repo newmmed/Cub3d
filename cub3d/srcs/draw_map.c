@@ -6,7 +6,7 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:03:53 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/19 16:53:02 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/19 17:40:04 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,30 @@ void normalize_angle(double *angle)
         *angle -= 2 * M_PI;
 }
 
+static int	color(int *arr)
+{
+	return ((arr[0] << 24) | (arr[1] << 16) | (arr[2] << 8) | 0xFF);
+}
+void draw_C_F(t_map *map)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while(i < HEIGHT)
+    {
+        j = 0;
+        while(j < WIDTH)
+        {
+            if (i < HEIGHT / 2)
+                mlx_put_pixel(map->img, j, i, color(map->C));
+            else
+                mlx_put_pixel(map->img, j, i, color(map->F));
+            j++;
+        }
+        i++;
+    }
+}
 void draw_all_rays(t_map *map)
 {
     // t_ray rays[WIDTH];
@@ -97,6 +121,7 @@ void draw_all_rays(t_map *map)
     i = 0;
         normalize_angle(&map->angl);
     angle = map->angl - (FOV / 2);
+    draw_C_F(map);
     while(i < WIDTH)
     {
         normalize_angle(&angle);
