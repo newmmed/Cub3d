@@ -6,7 +6,7 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:03:53 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/19 17:40:04 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/19 17:55:09 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void draw_all_rays(t_map *map)
     double line_height;
     double begin;
     double end;
+    double corrected_distance;
 
     i = 0;
         normalize_angle(&map->angl);
@@ -125,17 +126,17 @@ void draw_all_rays(t_map *map)
     while(i < WIDTH)
     {
         normalize_angle(&angle);
-        if((horiz_intersect(map,angle)).distance < (vertic_intersect(map,angle)).distance)
+        if ((horiz_intersect(map, angle)).distance < (vertic_intersect(map, angle)).distance)
         {
-            // draw_ray(map, map->xp, map->yp, angle, (horiz_intersect(map,angle)).distance, 0xFF0000FF);
-            line_height = (TILESIZE /(horiz_intersect(map,angle)).distance) * WIDTH;
-            
+            corrected_distance = (horiz_intersect(map, angle)).distance * cos(angle - map->angl);
+            line_height = (TILESIZE / corrected_distance) * WIDTH;
         }
         else
         {
-            // draw_ray(map, map->xp, map->yp, angle, (vertic_intersect(map,angle)).distance, 0x00FF00FF);
-            line_height = (TILESIZE /(vertic_intersect(map,angle)).distance) * WIDTH;
+            corrected_distance = (vertic_intersect(map, angle)).distance * cos(angle - map->angl);
+            line_height = (TILESIZE / corrected_distance) * WIDTH;
         }
+        //draw 3D
         begin = (HEIGHT / 2) - (line_height / 2);
         end = (HEIGHT / 2) + (line_height / 2);
         if (begin < 0)
@@ -188,4 +189,10 @@ void draw_map(void *param)
     mlx_put_pixel(map->img, map->xp, map->yp, 0xFF0000FF);
     draw_all_rays(map);
 }
+
+
+
+
+
+
 
