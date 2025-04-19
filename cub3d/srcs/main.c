@@ -6,7 +6,7 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:06:05 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/16 21:18:31 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:34:05 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,3 +57,6 @@ int main(int argc, char **argv)
     mlx_loop(map.mlx);
     return(0);
 }
+
+
+

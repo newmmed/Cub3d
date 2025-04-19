@@ -6,7 +6,7 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:07:15 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/16 21:24:34 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/19 17:53:52 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct map
 typedef struct ray
 {
     double distance;
+    //angle
     int vert;
     int horiz;
 }t_ray;

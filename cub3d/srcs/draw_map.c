@@ -6,7 +6,7 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:03:53 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/17 21:43:26 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/19 17:55:09 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,30 @@ void normalize_angle(double *angle)
         *angle -= 2 * M_PI;
 }
 
+static int	color(int *arr)
+{
+	return ((arr[0] << 24) | (arr[1] << 16) | (arr[2] << 8) | 0xFF);
+}
+void draw_C_F(t_map *map)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while(i < HEIGHT)
+    {
+        j = 0;
+        while(j < WIDTH)
+        {
+            if (i < HEIGHT / 2)
+                mlx_put_pixel(map->img, j, i, color(map->C));
+            else
+                mlx_put_pixel(map->img, j, i, color(map->F));
+            j++;
+        }
+        i++;
+    }
+}
 void draw_all_rays(t_map *map)
 {
     // t_ray rays[WIDTH];
@@ -93,30 +117,26 @@ void draw_all_rays(t_map *map)
     double line_height;
     double begin;
     double end;
+    double corrected_distance;
 
     i = 0;
         normalize_angle(&map->angl);
     angle = map->angl - (FOV / 2);
+    draw_C_F(map);
     while(i < WIDTH)
     {
         normalize_angle(&angle);
-        if((horiz_intersect(map,angle)).distance < (vertic_intersect(map,angle)).distance)
+        if ((horiz_intersect(map, angle)).distance < (vertic_intersect(map, angle)).distance)
         {
-            // rays[i] = horiz_intersect(map,angle);
-            // printf("h angl %f\n", angle);
-            // printf("h distance %f\n", (horiz_intersect(map,angle)).distance);
-            draw_ray(map, map->xp, map->yp, angle, (horiz_intersect(map,angle)).distance, 0xFF0000FF);
-            line_height = (TILESIZE /(horiz_intersect(map,angle)).distance) * WIDTH;
-            
+            corrected_distance = (horiz_intersect(map, angle)).distance * cos(angle - map->angl);
+            line_height = (TILESIZE / corrected_distance) * WIDTH;
         }
         else
         {
-            // rays[i] = vertic_intersect(map,angle);
-            // printf("v angl %f\n", angle);
-            // printf("v distance %f\n", (vertic_intersect(map,angle)).distance);
-            draw_ray(map, map->xp, map->yp, angle, (vertic_intersect(map,angle)).distance, 0x00FF00FF);
-            line_height = (TILESIZE /(vertic_intersect(map,angle)).distance) * WIDTH;
+            corrected_distance = (vertic_intersect(map, angle)).distance * cos(angle - map->angl);
+            line_height = (TILESIZE / corrected_distance) * WIDTH;
         }
+        //draw 3D
         begin = (HEIGHT / 2) - (line_height / 2);
         end = (HEIGHT / 2) + (line_height / 2);
         if (begin < 0)
@@ -135,11 +155,11 @@ void draw_all_rays(t_map *map)
 }
 void draw_map(void *param)
 {
-    int i;
-    int j;
+    // int i;
+    // int j;
     t_map *map;
 
-    i = 0;
+    // i = 0;
     map = (t_map *)param;
     if(map->img)
         mlx_delete_image(map->mlx, map->img);
@@ -150,23 +170,29 @@ void draw_map(void *param)
 		write_err("Error\nFailed to create image\n");
 		exit(1);
 	}
-    while(i < size_array(map->map))
-    {
-        j = 0;
-        while(j < ft_strlen(map->map[i]))
-        {
-            if(map->map[i][j] == '1')
-                draw_square(map,j,i,0x000000FF);
-            else if(map->map[i][j] != ' ')
-                draw_square(map,j,i,0xFFFFFFFF);
-            j++;
-        }
-        i++;
-    }
+    // while(i < size_array(map->map))
+    // {
+    //     j = 0;
+    //     while(j < ft_strlen(map->map[i]))
+    //     {
+    //         if(map->map[i][j] == '1')
+    //             draw_square(map,j,i,0x000000FF);
+    //         else if(map->map[i][j] != ' ')
+    //             draw_square(map,j,i,0xFFFFFFFF);
+    //         j++;
+    //     }
+    //     i++;
+    // }
     mlx_put_pixel(map->img, map->xp , map->yp , 0xFF0000FF);
     mlx_put_pixel(map->img, map->xp, map->yp , 0xFF0000FF);
     mlx_put_pixel(map->img, map->xp , map->yp, 0xFF0000FF);
     mlx_put_pixel(map->img, map->xp, map->yp, 0xFF0000FF);
     draw_all_rays(map);
 }
+
+
+
+
+
+
 
