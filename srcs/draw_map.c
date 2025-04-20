@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:03:53 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/19 17:55:09 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/20 23:42:12 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,19 +123,28 @@ void draw_all_rays(t_map *map)
         normalize_angle(&map->angl);
     angle = map->angl - (FOV / 2);
     draw_C_F(map);
+    
     while(i < WIDTH)
     {
         normalize_angle(&angle);
-        if ((horiz_intersect(map, angle)).distance < (vertic_intersect(map, angle)).distance)
+        t_ray ray_hrz = horiz_intersect(map, angle);
+        t_ray ray_vrt = vertic_intersect(map, angle);
+        t_ray ray = ray_hrz;
+        if (ray_hrz.distance < ray_vrt.distance)
         {
-            corrected_distance = (horiz_intersect(map, angle)).distance * cos(angle - map->angl);
+            corrected_distance = ray_hrz.distance * cos(angle - map->angl);
             line_height = (TILESIZE / corrected_distance) * WIDTH;
+            ray = ray_hrz;
         }
         else
         {
-            corrected_distance = (vertic_intersect(map, angle)).distance * cos(angle - map->angl);
+            corrected_distance = ray_vrt.distance * cos(angle - map->angl);
             line_height = (TILESIZE / corrected_distance) * WIDTH;
+            ray = ray_vrt;
         }
+        
+        map->wall_height = line_height;
+        
         //draw 3D
         begin = (HEIGHT / 2) - (line_height / 2);
         end = (HEIGHT / 2) + (line_height / 2);
@@ -143,9 +152,11 @@ void draw_all_rays(t_map *map)
             begin = 0;
         if (end > HEIGHT)
             end = HEIGHT;
+
+        draw_tex(map, i, begin, end, ray);
         while(begin < end)
         {
-            mlx_put_pixel(map->img, i, begin, 0xFF0000FF);
+            // mlx_put_pixel(map->img, i, begin, 0xFF0000FF);
             begin++;
         }
             // draw_ray(map, map->xp, map->yp, map->angl, (vertic_intersect(map,angle)).distance, 0x00FF00FF);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:09:39 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/16 16:42:04 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/20 23:04:51 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ t_ray horiz_intersect(t_map *map, double angle)
         ay += addy;
     }
     ray.distance = sqrt((ax - map->xp) * (ax - map->xp) + (ay - map->yp) * (ay - map->yp));
+    ray.pos_in_tile_x = ax - (int)(ax / TILESIZE) * TILESIZE;
+    ray.pos_in_tile_y = ay - (int)(ay / TILESIZE) * TILESIZE;
+    
     return(ray);
 }
 t_ray vertic_intersect(t_map *map, double angle)
@@ -100,5 +103,8 @@ t_ray vertic_intersect(t_map *map, double angle)
         ay += addy;
     }
     ray.distance = sqrt((ax - map->xp) * (ax - map->xp) + (ay - map->yp) * (ay - map->yp));
+    ray.pos_in_tile_x = ax - (int)(ax / TILESIZE) * TILESIZE;
+    ray.pos_in_tile_y = ay - (int)(ay / TILESIZE) * TILESIZE;
+    
     return(ray);
 }
