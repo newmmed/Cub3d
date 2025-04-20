@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:03:53 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/20 23:42:12 by mjadid           ###   ########.fr       */
+/*   Updated: 2025/04/21 00:27:58 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void draw_all_rays(t_map *map)
         if (end > HEIGHT)
             end = HEIGHT;
 
-        draw_tex(map, i, begin, end, ray);
+        draw_tex(map, i, begin,ray);
         while(begin < end)
         {
             // mlx_put_pixel(map->img, i, begin, 0xFF0000FF);

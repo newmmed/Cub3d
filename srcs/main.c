@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:06:05 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/20 23:12:12 by mjadid           ###   ########.fr       */
+/*   Updated: 2025/04/21 00:27:45 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
     map.tex_so = mlx_load_png(map.SO);
     map.tex_we = mlx_load_png(map.WE);
 	if (!map.tex_ea || !map.tex_no || !map.tex_so || !map.tex_we)
-        error();
+        return(1);
         
     mlx_key_hook(map.mlx, key_hook, &map);
     mlx_loop_hook(map.mlx, draw_map, &map);

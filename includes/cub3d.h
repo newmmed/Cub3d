@@ -6,7 +6,7 @@
 /*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:07:15 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/20 23:44:31 by mjadid           ###   ########.fr       */
+/*   Updated: 2025/04/21 00:26:50 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ int	is_wall(t_map *map, double ax, double ay);
 
 void draw_ray(t_map *map, double px, double py, double angle, double distance, int color);// a supp
 
-void draw_tex(t_map *map, int x, double begin, double end, t_ray ray);
+void draw_tex(t_map *map, int x, double begin, t_ray ray);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/21 00:25:37 by mjadid            #+#    #+#             */
+/*   Updated: 2025/04/21 00:30:40 by mjadid           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 
 
@@ -71,11 +83,9 @@ void	texture_to_image(t_map *map, double img_pos_x, double img_pos_y, double wal
 }
 
 
-void draw_tex(t_map *map, int x, double begin, double end, t_ray ray)
+void draw_tex(t_map *map, int x, double begin, t_ray ray)
 {
     map->tex = map->tex_no;
-    // printf("rayx: %f\n", ray.pos_in_tile_x);
-    // printf("rayy: %f\n", ray.pos_in_tile_y);
     double wall_x = ray.pos_in_tile_y;
     if (ray.pos_in_tile_x == 0)
     {
@@ -97,19 +107,7 @@ void draw_tex(t_map *map, int x, double begin, double end, t_ray ray)
         map->tex = map->tex_we;
         wall_x = ray.pos_in_tile_x;
     }
-// x
-//         0    TS
-//         -----
-//         |   |
-//         |   |     p
-//         |   |
-//         -----
-//     ts
-    
-
     double img_pos_x = x;
     double img_pos_y = begin;
-
     texture_to_image(map, img_pos_x, img_pos_y, wall_x);
-        
 }
