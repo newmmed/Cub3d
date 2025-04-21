@@ -6,7 +6,7 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:07:15 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/19 17:53:52 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:47:56 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void normalize_angle(double *angle);
 
 t_ray horiz_intersect(t_map *map, double angle);
 t_ray vertic_intersect(t_map *map, double angle);
-int	is_wall(t_map *map, double ax, double ay);
+int	is_wall(t_map *map, double ax, double ay, double diff);
 
 void draw_ray(t_map *map, double px, double py, double angle, double distance, int color);// a supp
 #endif

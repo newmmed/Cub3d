@@ -6,13 +6,13 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:09:39 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/16 16:42:04 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:16:42 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	is_wall(t_map *map, double ax, double ay)
+int	is_wall(t_map *map, double ax, double ay, double diff)
 {
 	int i;
 	int j;
@@ -23,16 +23,18 @@ int	is_wall(t_map *map, double ax, double ay)
 		return (0);
 	if (map->map[i][j] == '1')
 		return (0);
-    j = (ax - 0.1) / TILESIZE ;
+    j = (ax - diff) / TILESIZE ;
+    // if (diff == 5)
+    //     printf("->>>> j: %d | %f\n", j, ax);
 	if (j > 0 && map->map[i][j] == '1')
 		return (0);
-    j = (ax + 0.1)/ TILESIZE;
+    j = (ax + diff)/ TILESIZE;
 	if (j + 1 < ft_strlen(map->map[i]) && map->map[i][j] == '1')
 		return (0);
-    i = (ay - 0.1)/ TILESIZE;
+    i = (ay - diff)/ TILESIZE;
 	if (i > 0 && map->map[i][j] == '1')
 		return (0);
-    i = (ay  + 0.1)/ TILESIZE;
+    i = (ay  + diff)/ TILESIZE;
 	if (i + 1 < size_array(map->map) && map->map[i][j] == '1')
 		return (0);
 	return (1);
@@ -62,7 +64,7 @@ t_ray horiz_intersect(t_map *map, double angle)
     ax = ((ay - map->yp) / tan(angle)) + map->xp;
     while(1)
     {
-        if(!is_wall(map, ax, ay))
+        if(!is_wall(map, ax, ay, 0.1))
             break;
         ax += addx;
         ay += addy;
@@ -94,7 +96,7 @@ t_ray vertic_intersect(t_map *map, double angle)
     ay = ((ax - map->xp) * tan(angle)) + map->yp;
     while(1)
     {
-        if(!is_wall(map, ax, ay))
+        if(!is_wall(map, ax, ay, 0.1))
             break;
         ax += addx;
         ay += addy;

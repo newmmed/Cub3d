@@ -6,7 +6,7 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:03:53 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/19 17:55:09 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:01:10 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,11 +155,11 @@ void draw_all_rays(t_map *map)
 }
 void draw_map(void *param)
 {
-    // int i;
-    // int j;
+    int i;
+    int j;
     t_map *map;
 
-    // i = 0;
+    i = 0;
     map = (t_map *)param;
     if(map->img)
         mlx_delete_image(map->mlx, map->img);
@@ -170,19 +170,19 @@ void draw_map(void *param)
 		write_err("Error\nFailed to create image\n");
 		exit(1);
 	}
-    // while(i < size_array(map->map))
-    // {
-    //     j = 0;
-    //     while(j < ft_strlen(map->map[i]))
-    //     {
-    //         if(map->map[i][j] == '1')
-    //             draw_square(map,j,i,0x000000FF);
-    //         else if(map->map[i][j] != ' ')
-    //             draw_square(map,j,i,0xFFFFFFFF);
-    //         j++;
-    //     }
-    //     i++;
-    // }
+    while(i < size_array(map->map))
+    {
+        j = 0;
+        while(j < ft_strlen(map->map[i]))
+        {
+            if(map->map[i][j] == '1')
+                draw_square(map,j,i,0x000000FF);
+            else if(map->map[i][j] != ' ')
+                draw_square(map,j,i,0xFFFFFFFF);
+            j++;
+        }
+        i++;
+    }
     mlx_put_pixel(map->img, map->xp , map->yp , 0xFF0000FF);
     mlx_put_pixel(map->img, map->xp, map->yp , 0xFF0000FF);
     mlx_put_pixel(map->img, map->xp , map->yp, 0xFF0000FF);
