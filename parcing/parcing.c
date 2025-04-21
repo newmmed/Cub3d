@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:06:08 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/15 12:51:50 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:48:06 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,10 +214,10 @@ void read_part2(int fd, t_map *map)
 {
 	char *line;
 	char *count;
-	int j;
+	// int j;
 	
 
-	j = 0;
+	// j = 0;
 	count = ft_strdup("");
 	line = get_next_line(fd);
 	if (!line || !line[0])

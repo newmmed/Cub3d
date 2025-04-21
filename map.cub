@@ -1,5 +1,5 @@
 NO ./textur/test_no.png             
-SO              ./textur/test_so.png
+SO ./textur/test_so.png
 EA ./textur/test_ea.png
 WE ./textur/test_we.png
 

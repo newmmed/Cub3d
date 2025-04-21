@@ -6,7 +6,7 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:09:39 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/21 19:16:42 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/21 20:24:13 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ int	is_wall(t_map *map, double ax, double ay, double diff)
 
     i = (ay / TILESIZE);
     j = (ax / TILESIZE);
-    if (i < 0 || j < 0  || i >= size_array(map->map) || j >= ft_strlen(map->map[i]))
+    if (i < 0 || j < 0  || i >= size_array(map->map) || 
+        j >= ft_strlen(map->map[i]))
 		return (0);
 	if (map->map[i][j] == '1')
 		return (0);
     j = (ax - diff) / TILESIZE ;
-    // if (diff == 5)
-    //     printf("->>>> j: %d | %f\n", j, ax);
 	if (j > 0 && map->map[i][j] == '1')
 		return (0);
     j = (ax + diff)/ TILESIZE;
@@ -49,6 +48,7 @@ t_ray horiz_intersect(t_map *map, double angle)
     t_ray ray;
     
     ray.horiz = 1;
+    ray.vert = 0;
     if(angle >= 0 && angle <= M_PI)
     {
         ay = (map->yp / TILESIZE + 1)* TILESIZE ;
@@ -57,19 +57,22 @@ t_ray horiz_intersect(t_map *map, double angle)
     }
     else
     {
-        ay = (map->yp / TILESIZE * TILESIZE) - 0.1;
+        ay = (map->yp / TILESIZE * TILESIZE) - 0.00001;
         addx = -TILESIZE / tan(angle);
         addy = -TILESIZE;
     }
     ax = ((ay - map->yp) / tan(angle)) + map->xp;
     while(1)
     {
-        if(!is_wall(map, ax, ay, 0.1))
+        if(!is_wall(map, ax, ay, 0.00001))
             break;
         ax += addx;
         ay += addy;
     }
     ray.distance = sqrt((ax - map->xp) * (ax - map->xp) + (ay - map->yp) * (ay - map->yp));
+    ray.pos_in_tile_x = ax - (int)(ax / TILESIZE) * TILESIZE;
+    ray.pos_in_tile_y = ay - (int)(ay / TILESIZE) * TILESIZE;
+    
     return(ray);
 }
 t_ray vertic_intersect(t_map *map, double angle)
@@ -81,9 +84,10 @@ t_ray vertic_intersect(t_map *map, double angle)
     t_ray ray;
 
     ray.vert = 1;
+    ray.horiz = 0;
     if(angle >= M_PI_2 && angle <= 3 * M_PI_2)
     {
-        ax = ((map->xp / TILESIZE) * TILESIZE) - 0.1;
+        ax = ((map->xp / TILESIZE) * TILESIZE) - 0.00001;
         addy = -TILESIZE * tan(angle);
         addx = -TILESIZE;
     }
@@ -96,11 +100,14 @@ t_ray vertic_intersect(t_map *map, double angle)
     ay = ((ax - map->xp) * tan(angle)) + map->yp;
     while(1)
     {
-        if(!is_wall(map, ax, ay, 0.1))
+        if(!is_wall(map, ax, ay, 0.00001))
             break;
         ax += addx;
         ay += addy;
     }
     ray.distance = sqrt((ax - map->xp) * (ax - map->xp) + (ay - map->yp) * (ay - map->yp));
+    ray.pos_in_tile_x = ax - (int)(ax / TILESIZE) * TILESIZE;
+    ray.pos_in_tile_y = ay - (int)(ay / TILESIZE) * TILESIZE;
+    
     return(ray);
 }

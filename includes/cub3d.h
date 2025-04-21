@@ -6,14 +6,14 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:07:15 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/21 18:47:56 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:18:23 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../MLX42/include/MLX42/MLX42.h"
+# include "../../MLX42/include/MLX42/MLX42.h"
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -46,6 +46,14 @@ typedef struct map
     double angl;
     mlx_t *mlx;
     mlx_image_t	*img;
+    mlx_texture_t* tex;
+
+    double wall_height;
+
+    mlx_texture_t* tex_no;
+    mlx_texture_t* tex_so;
+    mlx_texture_t* tex_we;
+    mlx_texture_t* tex_ea;
     // mlx_
 }t_map;
 
@@ -55,6 +63,9 @@ typedef struct ray
     //angle
     int vert;
     int horiz;
+    double pos_in_tile_x;
+    double pos_in_tile_y;
+    double wall_height;
 }t_ray;
 
 
@@ -87,4 +98,7 @@ t_ray vertic_intersect(t_map *map, double angle);
 int	is_wall(t_map *map, double ax, double ay, double diff);
 
 void draw_ray(t_map *map, double px, double py, double angle, double distance, int color);// a supp
+
+void draw_tex(t_map *map, int x, double begin, t_ray ray);
+
 #endif

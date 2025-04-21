@@ -6,7 +6,7 @@
 /*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:06:05 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/19 16:34:05 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/21 20:22:48 by hanebaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ int main(int argc, char **argv)
 			write_err("Error\nFailed to initialize MLX\n");
 			exit(1);
 	}
-    // draw_map(&map);
+	map.tex_ea = mlx_load_png(map.EA);
+    map.tex_no = mlx_load_png(map.NO);
+    map.tex_so = mlx_load_png(map.SO);
+    map.tex_we = mlx_load_png(map.WE);
+	if (!map.tex_ea || !map.tex_no || !map.tex_so || !map.tex_we)
+        return(1);
     mlx_key_hook(map.mlx, key_hook, &map);
     mlx_loop_hook(map.mlx, draw_map, &map);
     mlx_loop(map.mlx);
