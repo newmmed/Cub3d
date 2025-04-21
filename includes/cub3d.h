@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:07:15 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/21 19:18:23 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/22 00:08:18 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,21 @@ typedef struct ray
     double pos_in_tile_y;
     double wall_height;
 }t_ray;
+
+typedef struct texture
+{
+	double			tex_pos_x;
+	double			tex_pos_y;
+	double			wall_y;
+	int				i;
+}t_texture;
+
+// typedef struct draw
+// {
+// 	double img_pos_x;
+// 	double img_pos_y;
+// 	double wall_x;
+// }t_draw;
 
 
 void write_err(char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 11:03:53 by hanebaro          #+#    #+#             */
-/*   Updated: 2025/04/21 20:21:24 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/22 00:08:36 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void draw_all_rays(t_map *map)
         // if (end > HEIGHT)
         //     end = HEIGHT;
 
-        draw_tex(map, i, begin,ray);
+        draw_tex(map, i, begin,ray );
         // while(begin < end)
         // {
         //     // mlx_put_pixel(map->img, i, begin, 0xFF0000FF);
@@ -167,7 +167,7 @@ void draw_all_rays(t_map *map)
 void draw_map(void *param)
 {
     int i;
-    int j;
+    // int j;
     t_map *map;
 
     i = 0;

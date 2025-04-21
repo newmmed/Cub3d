@@ -10,8 +10,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 OBJ = $(SRC:.c=.o)
-MLX = "./MLX42/build/libmlx42.a"
-LDFLAGS = -O3 -Iinclude -lglfw -L"/Users/hanebaro/.brew/Cellar/glfw/3.4/lib"
+MLX = "/Users/mjadid/MLX42/build/libmlx42.a"
+LDFLAGS = -O3 -Iinclude -lglfw -L"/Users/mjadid/.brew/Cellar/glfw/3.4/lib"
 FRAMEWORKS = -framework Cocoa -framework OpenGL -framework IOKit
 
 all: $(NAME)

@@ -3,15 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hanebaro <hanebaro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjadid <mjadid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 00:25:37 by mjadid            #+#    #+#             */
-/*   Updated: 2025/04/21 20:17:35 by hanebaro         ###   ########.fr       */
+/*   Updated: 2025/04/22 00:20:23 by mjadid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #include "../includes/cub3d.h"
 
@@ -51,63 +48,60 @@ void	*ft_memmove(void *dst, void *src, size_t len)
 	return (dst);
 }
 
-void	texture_to_image(t_map *map, double img_pos_x, double img_pos_y, double wall_x)
+void	texture_to_image(t_map *m, double img_x, double img_y, double wall_x)
 {
-	mlx_texture_t	*tex;
 	uint8_t			*pixelx;
 	uint8_t			*pixeli;
-	double		tex_pos_x;
-	double		tex_pos_y;
-	int				i;
-    double wall_y;
+	t_texture		t;
 
-	tex = map->tex;
-	wall_y = 1;
-	if (map->wall_height > HEIGHT)
-		wall_y = ((HEIGHT - map->wall_height) / 2);
-	tex_pos_x = (float) wall_x * (tex->width / TILESIZE);
-	i = 0;
-	while (i < map->wall_height && i < HEIGHT)
+	t.wall_y = 1;
+	if (m->wall_height > HEIGHT)
+		t.wall_y = ((HEIGHT - m->wall_height) / 2);
+	t.tex_pos_x = (float) wall_x * (m->tex->width / TILESIZE);
+	t.i = 0;
+	while (t.i < m->wall_height && t.i < HEIGHT)
 	{
-		tex_pos_y = (float)(i - wall_y) *(tex->height / map->wall_height);
-		if ((((int) tex_pos_y * tex->width) + (int) tex_pos_x) < (tex->width * tex->height))
+		t.tex_pos_y = (float)(t.i - t.wall_y) 
+			*(m->tex->height / m->wall_height);
+		if ((((int) t.tex_pos_y * m->tex->width) 
+				+ (int) t.tex_pos_x) < (m->tex->width * m->tex->height))
 		{
-			pixelx = &tex->pixels[((((int) tex_pos_y) * tex->width)
-					+ ((int) tex_pos_x)) * tex->bytes_per_pixel];
-			pixeli = &map->img->pixels[(int) ((int) (img_pos_y + i)
-					* map->img->width + (int) (img_pos_x)) * tex->bytes_per_pixel];
-			ft_memmove(pixeli, pixelx, tex->bytes_per_pixel);
+			pixelx = &m->tex->pixels[((((int) t.tex_pos_y) * 
+						m->tex->width) + ((int) t.tex_pos_x))
+				* m->tex->bytes_per_pixel];
+			pixeli = &m->img->pixels[(int)((int)(img_y + t.i)
+					*m->img->width + (int)(img_x)) *m->tex->bytes_per_pixel];
+			ft_memmove(pixeli, pixelx, m->tex->bytes_per_pixel);
 		}
-		i++;
+		t.i++;
 	}
 }
 
-
-void draw_tex(t_map *map, int x, double begin, t_ray ray)
+void	draw_tex(t_map *map, int x, double begin, t_ray ray)
 {
-    map->tex = map->tex_no;
-    double wall_x = ray.pos_in_tile_y;
-    if (ray.pos_in_tile_x == 0)
-    {
-        map->tex = map->tex_so;
-        wall_x = ray.pos_in_tile_y;
-    }
-    if (ray.pos_in_tile_x >= TILESIZE - 0.0001)
-    {
-        map->tex = map->tex_no;
-        wall_x = ray.pos_in_tile_y;
-    }
-    if (ray.pos_in_tile_y == 0)
-    {
-        map->tex = map->tex_ea;
-        wall_x = ray.pos_in_tile_x;
-    }
-    if (ray.pos_in_tile_y >= TILESIZE - 0.0001)
-    {
-        map->tex = map->tex_we;
-        wall_x = ray.pos_in_tile_x;
-    }
-    double img_pos_x = x;
-    double img_pos_y = begin;
-    texture_to_image(map, img_pos_x, img_pos_y, wall_x);
+	double	wall_x;
+
+	wall_x = ray.pos_in_tile_y;
+	map->tex = map->tex_no;
+	if (ray.pos_in_tile_x == 0)
+	{
+		map->tex = map->tex_so;
+		wall_x = ray.pos_in_tile_y;
+	}
+	if (ray.pos_in_tile_x >= TILESIZE - 0.0001)
+	{
+		map->tex = map->tex_no;
+		wall_x = ray.pos_in_tile_y;
+	}
+	if (ray.pos_in_tile_y == 0)
+	{
+		map->tex = map->tex_ea;
+		wall_x = ray.pos_in_tile_x;
+	}
+	if (ray.pos_in_tile_y >= TILESIZE - 0.0001)
+	{
+		map->tex = map->tex_we;
+		wall_x = ray.pos_in_tile_x;
+	}
+	texture_to_image(map, x, begin, wall_x);
 }
